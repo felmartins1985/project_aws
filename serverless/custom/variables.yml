@@ -1,0 +1,19 @@
+SERVICE_NAME_PREFIX: ${self:service}-${sls:stage}
+
+SSM_PREFIX: ${self:custom.SERVICE_NAME_PREFIX}
+
+MAIN_TABLE_NAME: ${self:custom.SERVICE_NAME_PREFIX}-main
+
+QUEUE_URL: https://sqs.us-east-1.amazonaws.com/976098840428/felipequeue.fifo
+
+# USER_POOL_ID: us-east-1_tJUAiYbWR
+
+# USER_POOL_CLIENT_ID: 44gpf7trgirulav8jojbb9i78a
+
+POOL_NAME: UserBookPool
+
+POOL_CLIENT_NAME: UserClient
+
+USER_POOL_ID:  { Ref: UserPool }
+
+USER_POOL_CLIENT_ID: { Ref: UserPoolClient}

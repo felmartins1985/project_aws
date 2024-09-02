@@ -1,0 +1,7 @@
+Resources:
+  FelipeQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: felipequeue.fifo
+      FifoQueue: true
+  

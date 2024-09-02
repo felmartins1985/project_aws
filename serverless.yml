@@ -1,0 +1,52 @@
+service: felipe-lambda-crud-user
+frameworkVersion: "3"
+plugins:
+  - serverless-esbuild
+  - serverless-deployment-bucket
+
+provider:
+  name: aws
+  stage: ${opt:stage, "dev"}
+  region: ${opt:region, "us-east-1"}
+  environment: ${file(./serverless/provider/environment.yml)}
+  runtime: nodejs18.x
+  deploymentBucket:
+    name: bigtrade-serverless-artifacts-${sls:stage}
+  iam:
+    role: ${file(./serverless/provider/iam.role.yml)}
+  apiGateway:
+    binaryMediaTypes:
+      - "*/*"
+
+functions:
+
+  sqsFelipe:
+    handler: src/01-presentation/controllers/events/sqsFelipe.handler
+    reservedConcurrency: 1
+    events:
+      - sqs:
+          arn: 
+            Fn::GetAtt:
+              - FelipeQueue
+              - Arn
+          batchSize: 1
+
+  api:
+    handler: src/01-presentation/app.handler
+    timeout: 30
+    events:
+      - http:
+          method: ANY
+          path: /{proxy+}
+          cors: false
+      - http:
+          method: ANY
+          path: /
+          cors: false
+
+custom: ${file(./serverless/custom/variables.yml)}
+
+resources:
+  - ${file(./serverless/resources/dynamodb/table.main.yml)}
+  - ${file(./serverless/resources/sqs/queue-fifo.yml)}
+  - ${file(./serverless/resources/cognito/userpool.yml)}

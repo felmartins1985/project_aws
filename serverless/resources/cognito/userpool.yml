@@ -1,0 +1,47 @@
+Resources:
+#  User Pool
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    DeletionPolicy: Retain
+    Properties:
+      UserPoolName: ${self:custom.POOL_NAME}
+      Schema:
+        - Name: name
+          Required: false
+          Mutable: true
+        - Name: role
+          AttributeDataType: String
+          Required: false
+          Mutable: true
+        - Name: email
+          AttributeDataType: String
+          Required: false
+          Mutable: true
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 6
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: ${self:custom.POOL_CLIENT_NAME} # Userclient
+      GenerateSecret: false
+      UserPoolId: { Ref: UserPool }
+      ExplicitAuthFlows:
+        - "ADMIN_NO_SRP_AUTH"
+      TokenValidityUnits: { AccessToken: hours, IdToken: hours }
+      AccessTokenValidity: 8
+      IdTokenValidity: 8
+
+  ParameterUserPoolId:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /${self:custom.SSM_PREFIX}/USER_POOL_ID
+      Type: String
+      Value: { Ref: UserPool }
+
+  ParameterUserPoolClientId:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /${self:custom.SSM_PREFIX}/USER_POOL_CLIENT_ID
+      Type: String
+      Value: { Ref: UserPoolClient }

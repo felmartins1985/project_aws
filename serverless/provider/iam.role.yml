@@ -1,0 +1,34 @@
+statements:
+  - Effect: Allow
+    Action:
+      - dynamodb:PutItem
+      - dynamodb:DeleteItem
+      - dynamodb:GetItem
+      - dynamodb:Query
+      - dynamodb:UpdateItem
+    Resource:
+      - !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/felipe-lambda-crud-user-sbx-main*
+  - Effect: Allow
+    Action:
+      - sqs:SendMessage
+      - sqs:DeleteMessage
+    Resource:
+      - !Sub arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:felipequeue.fifo 
+  - Effect: Allow
+    Action:
+      - ssm:PutParameter
+      - ssm:GetParametersByPath
+      - ssm:GetParameter
+    Resource:
+      - '*'
+  - Effect: Allow
+    Action:
+      - cognito-idp:AdminInitiateAuth
+      - cognito-idp:AdminCreateUser
+      - cognito-idp:AdminSetUserPassword
+      - cognito-idp:ListUsers
+      - cognito-idp:AdminDisableUser
+      - cognito-idp:AdminEnableUser
+      - cognito-idp:AdminUpdateUserAttributes
+    Resource:
+      - '*'

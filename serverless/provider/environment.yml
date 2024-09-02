@@ -1,0 +1,6 @@
+SQS_QUEUE_URL: ${self:custom.QUEUE_URL}
+TABLE_NAME: ${self:custom.MAIN_TABLE_NAME}
+URL_DEFAULT: 'https://openlibrary.org/search.json'
+USER_POOL_ID: ${ssm:/${self:custom.SSM_PREFIX}/USER_POOL_ID}
+USER_POOL_CLIENT_ID: ${ssm:/${self:custom.SSM_PREFIX}/USER_POOL_CLIENT_ID}
+BASE_URL: 'https://cognito-idp.us-east-1.amazonaws.com'
