@@ -13,8 +13,10 @@ Este projeto implementa um sistema de aluguel de livros, onde os usuários podem
 * AWS Cognito: Para registro, autenticação e autorização de usuários.
 * AWS Lambda: Para execução de funções serverless.
 * AWS SQS: Para garantir o processamento correto em situações de concorrência, como quando mais de um usuário tenta alugar o mesmo livro ao mesmo tempo.
+* AWS CloudFormation: Para gerenciar a criação e manutenção dos recursos de infraestrutura AWS de forma declarativa.
 * Serverless Framework: Utilizado para provisionar a infraestrutura via o arquivo serverless.yml.
 * AWS SDK: Para realizar operações com os serviços da AWS por meio de código.
+* AWS IAM:Para configurar as permissões dos serviços da AWS.
 
 ### Funcionalidades:
 * Gerenciamento de Usuários: Os usuários podem se registrar, fazer login e autenticar suas ações utilizando tokens do Cognito.
