@@ -20,7 +20,7 @@ export class UserCognitoController {
       }
       const result = await this.cognitoUserService.createUser(validate.data);
       if(result.error){
-        return res.status(200).json(result);
+        return res.status(400).json(result);
       }
       return res.status(201).json(result);
     } catch(error){

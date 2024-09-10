@@ -28,7 +28,7 @@ export class BookController{
       req.body.nome = req.body.nome.toLowerCase();
       const result = await this.bookService.createBook(req.body);
       if(result.error){
-        return res.status(200).json(result);
+        return res.status(400).json(result);
       }
       return res.status(201).json(result);
     }catch(error){

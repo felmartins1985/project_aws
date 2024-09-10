@@ -20,7 +20,7 @@ export class AuthCognitoController {
       }
       const result = await this.authCognitoService.login(validate.data);
       if(result.error){
-        return res.status(200).json(result);
+        return res.status(400).json(result);
       }
       return res.status(200).json(result);
     } catch(error){
@@ -39,7 +39,7 @@ export class AuthCognitoController {
       }
       const result = await this.authCognitoService.executeValidationRoutine(token);
       if(result.error){
-        return res.status(200).json(result);
+        return res.status(400).json(result);
       }
       return res.status(200).json(result);
     }catch(error){
